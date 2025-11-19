@@ -140,16 +140,17 @@ else:
 # API credentials - ОБЯЗАТЕЛЬНО задайте через переменные окружения в продакшене!
 # Получите на https://my.telegram.org/apps
 
-API_ID = get_env_int('TELEGRAM_API_ID', default=28607273)
-API_HASH = os.getenv('TELEGRAM_API_HASH', '55165d607c1d26dca0d0844d437fde2d')
+# Загружаем из переменных окружения БЕЗ дефолтных значений
+API_ID = get_env_int('TELEGRAM_API_ID', default=0)
+API_HASH = os.getenv('TELEGRAM_API_HASH', '')
 
-# ВАЖНО: В продакшене API credentials должны быть заданы через переменные окружения!
-if IS_PRODUCTION:
-    if API_ID == 28607273 or API_HASH == '55165d607c1d26dca0d0844d437fde2d':
-        print("⚠️  ВНИМАНИЕ: В продакшене используются дефолтные API credentials!")
-        print("   Установите переменные окружения:")
-        print("   - TELEGRAM_API_ID")
-        print("   - TELEGRAM_API_HASH")
+# ВАЖНО: Если API credentials не заданы - принудительно включаем демо-режим
+if not API_ID or not API_HASH:
+    print("⚠️  API credentials не заданы - включен DEMO_MODE")
+    print("   Для работы с реальными каналами установите:")
+    print("   - TELEGRAM_API_ID")
+    print("   - TELEGRAM_API_HASH")
+    DEMO_MODE = True
 
 
 # ============================================================================
