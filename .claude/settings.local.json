@@ -19,7 +19,9 @@
       "Bash(ENV=production python3:*)",
       "Bash(tree:*)",
       "Bash(test:*)",
-      "Bash(git add:*)"
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git push:*)"
     ],
     "deny": [],
     "ask": []
