@@ -157,8 +157,12 @@ if not API_ID or not API_HASH:
 # TELEGRAM SESSION
 # ============================================================================
 
-# Название файла сессии
+# Название файла сессии (используется только в development)
 SESSION_NAME = os.getenv('TELEGRAM_SESSION_NAME', 'session')
+
+# Строковая сессия для продакшена (обязательна в production, если не DEMO_MODE)
+# Получите её локально с помощью скрипта generate_session.py
+TELEGRAM_SESSION_STRING = os.getenv('TELEGRAM_SESSION_STRING', '')
 
 
 # ============================================================================
