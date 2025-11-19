@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="{{ lang }}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="/static/icons/logo.png">
+    <link rel="apple-touch-icon" href="/static/icons/logo.png">
+
+    <!-- SEO Meta Tags (Multilingual) -->
+    {% if lang == 'en' %}
+    <title>Export Telegram Channel Posts to PDF — Channel2PDF</title>
+    <meta name="description" content="Save all posts from any public Telegram channel into a single PDF file. Channel2PDF collects messages for any date range, preserves formatting and links, and helps you create clean archives and reports.">
+    <meta name="keywords" content="telegram, export telegram channel, telegram to pdf, channel posts to pdf, telegram archive, channel2pdf">
+    {% else %}
+    <title>Выгрузка постов Telegram-каналов в PDF — Channel2PDF</title>
+    <meta name="description" content="Сохраните все посты публичного Telegram-канала в один PDF. Channel2PDF собирает публикации за любой период, сохраняет форматирование, ссылки, реакции и помогает готовить отчёты, архивы и аналитику.">
+    <meta name="keywords" content="telegram, телеграм, выгрузка постов, экспорт канала, архив telegram, pdf, channel2pdf">
+    {% endif %}
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Channel2PDF">
+    <meta property="og:url" content="https://channel2pdf.onrender.com">
+    {% if lang == 'en' %}
+    <meta property="og:title" content="Export Telegram Channel Posts to PDF — Channel2PDF">
+    <meta property="og:description" content="Save all posts from any public Telegram channel into a single PDF file. Channel2PDF collects messages for any date range, preserves formatting and links, and helps you create clean archives and reports.">
+    {% else %}
+    <meta property="og:title" content="Выгрузка постов Telegram-каналов в PDF — Channel2PDF">
+    <meta property="og:description" content="Сохраните все посты публичного Telegram-канала в один PDF. Channel2PDF собирает публикации за любой период, сохраняет форматирование, ссылки, реакции и помогает готовить отчёты, архивы и аналитику.">
+    {% endif %}
+    <meta property="og:image" content="/static/icons/og.png">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+
+    <!-- Twitter Cards -->
+    <meta name="twitter:card" content="summary_large_image">
+    {% if lang == 'en' %}
+    <meta name="twitter:title" content="Export Telegram Channel Posts to PDF — Channel2PDF">
+    <meta name="twitter:description" content="Save all posts from any public Telegram channel into a single PDF file. Channel2PDF collects messages for any date range, preserves formatting and links, and helps you create clean archives and reports.">
+    {% else %}
+    <meta name="twitter:title" content="Выгрузка постов Telegram-каналов в PDF — Channel2PDF">
+    <meta name="twitter:description" content="Сохраните все посты публичного Telegram-канала в один PDF. Channel2PDF собирает публикации за любой период, сохраняет форматирование, ссылки, реакции и помогает готовить отчёты, архивы и аналитику.">
+    {% endif %}
+    <meta name="twitter:image" content="/static/icons/og.png">
+
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Channel2PDF",
+      "alternateName": "Telegram channel to PDF exporter",
+      "applicationCategory": "UtilityApplication",
+      "operatingSystem": "Any",
+      "description": "Channel2PDF helps you export all posts from public Telegram channels into a single PDF file for reporting, archiving, and analysis.",
+      "url": "https://channel2pdf.onrender.com",
+      "inLanguage": ["ru", "en"],
+      "creator": {
+        "@type": "Organization",
+        "name": "Channel2PDF"
+      },
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      }
+    }
+    </script>
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="/static/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Внешний счётчик аналитики (Яндекс.Метрика, Plausible, GA4, и т.д.) -->
+    {% if analytics_snippet %}
+    {{ analytics_snippet | safe }}
+    {% endif %}
+</head>
+<body>
+    <div class="page-wrapper">
+        <div class="container">
+            <!-- Header -->
+            <div class="header">
+                <div class="header-top">
+                    <div class="logo-wrapper">
+                        <img src="/static/icons/logo.png" alt="Channel2PDF Logo" class="logo">
+                        <span class="brand-name" data-i18n="brandName">Channel2PDF</span>
+                    </div>
+
+                    <!-- Language Switcher -->
+                    <div class="lang-switcher">
+                        <button class="lang-switch-btn active" data-lang="ru" data-i18n="langRu">RU</button>
+                        <button class="lang-switch-btn" data-lang="en" data-i18n="langEn">EN</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Hero Section -->
+            <div class="hero-section">
+                <h1 class="title" data-i18n="heroTitle">Выгрузка постов Telegram-каналов в PDF</h1>
+                <p class="subtitle" data-i18n="heroSubtitle">Сохраните все посты публичного Telegram-канала за выбранный период в одном PDF — для отчётов, архива и аналитики</p>
+            </div>
+
+            <!-- Demo Mode Alert -->
+            {% if demo_mode %}
+            <div class="alert alert-info">
+                <strong data-i18n="demoModeTitle">Демо-режим:</strong>
+                <span data-i18n="demoModeText">Приложение работает с тестовыми данными без подключения к Telegram API. Для работы с реальными каналами установите переменные окружения ENV=production и TELEGRAM_API_ID, TELEGRAM_API_HASH.</span>
+            </div>
+            {% endif %}
+
+            <!-- Error Alert -->
+            {% if error %}
+            <div class="alert alert-error">
+                <strong data-i18n="errorTitle">Ошибка:</strong> {{ error }}
+            </div>
+            {% endif %}
+
+            <!-- Success State -->
+            {% if success %}
+            <div class="alert alert-success">
+                <div class="success-content">
+                    <div class="success-icon">✓</div>
+                    <h2 class="success-title" data-i18n="successTitle">PDF-отчёт успешно создан!</h2>
+
+                    <div class="stats">
+                        <div class="stats-item">
+                            <span class="stats-label" data-i18n="successChannel">Канал</span>
+                            <span class="stats-value">{{ channel }}</span>
+                        </div>
+                        <div class="stats-item">
+                            <span class="stats-label" data-i18n="successPeriod">Период</span>
+                            <span class="stats-value">{{ date_from }} — {{ date_to }}</span>
+                        </div>
+                        <div class="stats-item">
+                            <span class="stats-label" data-i18n="successSorting">Сортировка</span>
+                            <span class="stats-value">{{ sort_type_name }} ({{ direction_name }})</span>
+                        </div>
+                    </div>
+
+                    <div class="button-group">
+                        <a href="/files/{{ pdf_filename }}" class="btn btn-primary btn-large">
+                            <span data-i18n="downloadPdfBtn">Скачать PDF</span>
+                        </a>
+                        <a href="/" class="btn btn-secondary">
+                            <span data-i18n="createNewReportBtn">Создать новый отчёт</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            {% else %}
+
+            <!-- Main Two-Column Grid -->
+            <div class="main-grid">
+                <!-- Left Column: Form -->
+                <div class="card">
+                    <form method="post" action="/generate" class="form">
+                        <!-- Channel Input -->
+                        <div class="form-group">
+                            <label for="channel" data-i18n="formChannelLabel">Канал</label>
+                            <input
+                                type="text"
+                                id="channel"
+                                name="channel"
+                                data-i18n="formChannelPlaceholder"
+                                placeholder="@channelname или https://t.me/channelname"
+                                value="{{ form_data.channel if form_data else '' }}"
+                                required
+                                {% if demo_mode %}disabled{% endif %}
+                            >
+                            {% if demo_mode %}
+                            <small class="form-hint" data-i18n="formChannelHintDemo">В демо-режиме используется тестовый канал</small>
+                            <input type="hidden" name="channel" value="demo_channel">
+                            {% else %}
+                            <small class="form-hint" data-i18n="formChannelHint">Например: @durov или https://t.me/durov</small>
+                            {% endif %}
+                        </div>
+
+                        <!-- Date Range -->
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="date_from" data-i18n="formDateFromLabel">Дата начала</label>
+                                <input
+                                    type="date"
+                                    id="date_from"
+                                    name="date_from"
+                                    value="{{ form_data.date_from if form_data else '' }}"
+                                    required
+                                >
+                            </div>
+
+                            <div class="form-group">
+                                <label for="date_to" data-i18n="formDateToLabel">Дата окончания</label>
+                                <input
+                                    type="date"
+                                    id="date_to"
+                                    name="date_to"
+                                    value="{{ form_data.date_to if form_data else '' }}"
+                                    required
+                                >
+                            </div>
+                        </div>
+
+                        <!-- Sort Options -->
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="sort_type" data-i18n="formSortTypeLabel">Тип сортировки</label>
+                                <select id="sort_type" name="sort_type" required>
+                                    <option value="date" {% if form_data and form_data.sort_type == 'date' %}selected{% endif %} data-i18n="formSortByDate">
+                                        По дате
+                                    </option>
+                                    <option value="reactions" {% if form_data and form_data.sort_type == 'reactions' %}selected{% endif %} data-i18n="formSortByReactions">
+                                        По количеству реакций
+                                    </option>
+                                    <option value="views" {% if form_data and form_data.sort_type == 'views' %}selected{% endif %} data-i18n="formSortByViews">
+                                        По количеству просмотров
+                                    </option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="direction" data-i18n="formDirectionLabel">Направление</label>
+                                <select id="direction" name="direction" required>
+                                    <option value="desc" {% if not form_data or form_data.direction == 'desc' %}selected{% endif %} data-i18n="formDirectionDesc">
+                                        По убыванию
+                                    </option>
+                                    <option value="asc" {% if form_data and form_data.direction == 'asc' %}selected{% endif %} data-i18n="formDirectionAsc">
+                                        По возрастанию
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Optional Filename -->
+                        <div class="form-group">
+                            <label for="filename" data-i18n="formFilenameLabel">Имя PDF-файла (опционально)</label>
+                            <input
+                                type="text"
+                                id="filename"
+                                name="filename"
+                                data-i18n="formFilenamePlaceholder"
+                                placeholder="report.pdf"
+                                value="{{ form_data.filename if form_data else '' }}"
+                            >
+                            <small class="form-hint" data-i18n="formFilenameHint">Если не указать, имя будет сгенерировано автоматически</small>
+                        </div>
+
+                        <!-- Submit Button -->
+                        <button type="submit" class="btn btn-primary btn-large">
+                            <span data-i18n="formSubmitBtn">Сформировать PDF</span>
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Right Column: Instructions + About + FAQ -->
+                <div>
+                    <!-- Instructions Card -->
+                    <div class="card" style="margin-bottom: 2rem;">
+                        <h2 class="card-title" data-i18n="howItWorksTitle">Как работает выгрузка</h2>
+                        <ol class="instruction-list">
+                            <li class="instruction-item">
+                                <div class="instruction-number">1</div>
+                                <div class="instruction-text" data-i18n="howItWorksStep1">Вставьте ссылку на публичный Telegram-канал или его @username.</div>
+                            </li>
+                            <li class="instruction-item">
+                                <div class="instruction-number">2</div>
+                                <div class="instruction-text" data-i18n="howItWorksStep2">Укажите период — какие посты нужно выгрузить.</div>
+                            </li>
+                            <li class="instruction-item">
+                                <div class="instruction-number">3</div>
+                                <div class="instruction-text" data-i18n="howItWorksStep3">Выберите порядок: сначала старые или новые.</div>
+                            </li>
+                            <li class="instruction-item">
+                                <div class="instruction-number">4</div>
+                                <div class="instruction-text" data-i18n="howItWorksStep4">Нажмите «Сформировать PDF».</div>
+                            </li>
+                            <li class="instruction-item">
+                                <div class="instruction-number">5</div>
+                                <div class="instruction-text" data-i18n="howItWorksStep5">Сервис соберёт все посты за выбранный период и объединит их в один документ.</div>
+                            </li>
+                        </ol>
+                        <div class="note">
+                            <strong data-i18n="howItWorksNote">Примечание:</strong>
+                            <span data-i18n="howItWorksNoteText">Работает только с публичными каналами, авторизация не требуется.</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- About Section (Full Width) -->
+            <div class="card" style="margin-top: 48px;">
+                <h2 class="card-title" data-i18n="aboutTitle">О сервисе Channel2PDF</h2>
+                <div class="seo-text">
+                    <p data-i18n="aboutParagraph1">Channel2PDF — это удобный сервис для выгрузки всех постов из публичных Telegram-каналов в формат PDF. Он помогает быстро собрать историю канала или выбрать нужный период — например, для аналитики, подготовки отчётов, архивирования или передачи материалов клиенту. Инструмент автоматически загружает сообщения, сохраняет текст, ссылки, базовые реакции и просмотры, а затем формирует единый PDF-файл, который удобно изучать, просматривать офлайн или прикладывать к документации.</p>
+
+                    <p data-i18n="aboutParagraph2">Сервис работает без авторизации: достаточно вставить ссылку на публичный Telegram-канал, выбрать диапазон дат и нажать кнопку. PDF-архив формируется за несколько секунд, после чего его можно скачать и использовать для работы с контентом, анализа активности канала или сохранения важных публикаций.</p>
+
+                    <p data-i18n="aboutParagraph3">Решение подходит для маркетологов, аналитиков, исследователей, редакторов, агентств и всех, кому необходимо выгрузить историю Telegram-канала в удобном формате.</p>
+                </div>
+
+                <!-- FAQ Section -->
+                <div class="faq">
+                    <h3 class="card-title" style="font-size: 1.125rem;" data-i18n="faqTitle">Частые вопросы</h3>
+
+                    <div class="faq-item">
+                        <div class="faq-question" data-i18n="faqQuestion1">Как выгрузить историю Telegram-канала?</div>
+                        <div class="faq-answer" data-i18n="faqAnswer1">Вставьте ссылку, выберите период и нажмите «Сформировать PDF».</div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question" data-i18n="faqQuestion2">Можно ли скачать канал полностью?</div>
+                        <div class="faq-answer" data-i18n="faqAnswer2">Да, если канал публичный.</div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question" data-i18n="faqQuestion3">Что сохраняется в PDF?</div>
+                        <div class="faq-answer" data-i18n="faqAnswer3">Текст постов, ссылки, реакции, просмотры.</div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question" data-i18n="faqQuestion4">Нужна ли авторизация?</div>
+                        <div class="faq-answer" data-i18n="faqAnswer4">Нет, сервис работает открыто.</div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question" data-i18n="faqQuestion5">Можно ли использовать PDF для отчётов?</div>
+                        <div class="faq-answer" data-i18n="faqAnswer5">Да, формат подходит для аналитики, архива и передачи клиентам.</div>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+
+            <!-- Footer -->
+            <div class="footer">
+                <div class="footer-links">
+                    <a href="/health" target="_blank" data-i18n="footerStatusLink">Статус сервиса</a>
+                    <span class="footer-separator">•</span>
+                    <a href="https://github.com" target="_blank" data-i18n="footerGithubLink">GitHub</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Load Translations Script -->
+    <script src="/static/translations.js"></script>
+</body>
+</html>

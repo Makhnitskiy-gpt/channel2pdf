@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Парсер Telegram-каналов</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="page-wrapper">
+        <div class="container">
+            <!-- Header -->
+            <div class="header">
+                <div class="logo">T</div>
+                <h1 class="title">Парсер Telegram-каналов</h1>
+                <p class="subtitle">Генерация PDF-отчётов из публичных Telegram-каналов</p>
+            </div>
+
+            <!-- Demo Mode Alert -->
+            
+            <div class="alert alert-info">
+                <strong>Демо-режим:</strong> Приложение работает с тестовыми данными без подключения к Telegram API.
+                Для работы с реальными каналами заполните API_ID и API_HASH в config.py и установите DEMO_MODE = False.
+            </div>
+            
+
+            <!-- Error Alert -->
+            
+
+            <!-- Success State -->
+            
+            <div class="alert alert-success">
+                <div class="success-content">
+                    <div class="success-icon">✓</div>
+                    <h2 class="success-title">PDF-отчёт успешно создан!</h2>
+
+                    <div class="stats">
+                        <div class="stats-item">
+                            <span class="stats-label">Канал</span>
+                            <span class="stats-value">test_channel</span>
+                        </div>
+                        <div class="stats-item">
+                            <span class="stats-label">Период</span>
+                            <span class="stats-value">2024-01-01 — 2025-01-01</span>
+                        </div>
+                        <div class="stats-item">
+                            <span class="stats-label">Сортировка</span>
+                            <span class="stats-value">дате (по убыванию)</span>
+                        </div>
+                    </div>
+
+                    <div class="button-group">
+                        <a href="/files/test_web_emoji.pdf" class="btn btn-primary btn-large">
+                            Скачать PDF
+                        </a>
+                        <a href="/" class="btn btn-secondary">
+                            Создать новый отчёт
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+
+            <!-- Footer -->
+            <div class="footer">
+                <div class="footer-links">
+                    <a href="/health" target="_blank">Статус сервиса</a>
+                    <span class="footer-separator">•</span>
+                    <a href="https://github.com" target="_blank">GitHub</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

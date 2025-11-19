@@ -1,0 +1,17 @@
+# Telegram API
+telethon==1.37.0
+
+# PDF generation
+weasyprint==62.3
+
+# Web framework (для веб-версии)
+fastapi==0.115.0
+uvicorn[standard]==0.32.0
+jinja2==3.1.4
+python-multipart==0.0.12
+
+# Environment variables management
+python-dotenv==1.2.1
+
+# Testing (опционально, для test_web_emoji.py)
+requests==2.32.5
